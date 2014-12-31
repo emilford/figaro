@@ -40,10 +40,10 @@ EOF
   end
 
   context "without a .gitignore file" do
-    it "doesn't generate a new .gitignore file" do
+    it "Git-ignores the configuration file" do
       run_simple("figaro install")
 
-      check_file_presence([".gitignore"], false)
+      check_file_content(".gitignore", %r(^/config/application\.yml$), true)
     end
   end
 end

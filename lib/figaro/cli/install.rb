@@ -19,13 +19,12 @@ module Figaro
       end
 
       def ignore_configuration
-        if File.exists?(".gitignore")
-          append_to_file(".gitignore", <<-EOF)
+        create_file(".gitignore") unless File.exists?(".gitignore")
 
-# Ignore application configuration
-/#{options[:path]}
-EOF
-        end
+        append_to_file(".gitignore", <<-EOF.gsub(/^\s+/, ""))
+          # Ignore application configuration
+          /#{options[:path]}
+        EOF
       end
     end
   end
